@@ -9,7 +9,7 @@ describe('General test with CIrcle CI API', ()=> {
             method: 'GET',
             headers: ({
                 Authorization: 'Basic ' + Cypress.env('authorization_token'),
-                'Circle-Token': Cypress.env('circle-token')
+                'Circle-Token': Cypress.env('circle_token')
             }),
             url: '/project/gh/ashishmadhav04/CirclePipeline',
             body: ''

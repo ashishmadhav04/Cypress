@@ -9,7 +9,7 @@ describe('General test with CIrcle CI API', ()=> {
             method: 'GET',
             headers: ({
                 Authorization: 'Basic ' + Cypress.env('authorization_token'),
-                'Circle-Token': Cypress.env('circle-token')
+                'Circle-Token': Cypress.env('circle_token')
             }),
             url: '/project/gh/ashishmadhav04/CirclePipeline',
             body: ''
@@ -21,7 +21,7 @@ describe('General test with CIrcle CI API', ()=> {
                 cy.wait(2500)
                 cy.log(Cypress.env('project_name'))
                 cy.log(Cypress.env('authorization_token'))
-                cy.log(Cypress.env('circle-token'))
+                cy.log(Cypress.env('circle_token'))
                 cy.log(Cypress.env('baseUrl'))
             })
     })
