@@ -24,3 +24,6 @@ jobs:
             - ~/.npm
             - ~/.cache
       - run: $(npm bin)/cypress run
+      - store_artifacts:
+          name: Store Artifacts
+          path: ./cypress/reports
