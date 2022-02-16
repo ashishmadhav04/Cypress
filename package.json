@@ -1,0 +1,36 @@
+{
+  "name": "Cypress",
+  "version": "1.0.0",
+  "description": "This holds Cypress related projects",
+  "main": "index.js",
+  "scripts": {
+    "clean:reports": "rm -R -f cypress/reports && mkdir cypress/reports",
+    "pretest": "npm run clean:reports",
+    "scripts": "cypress run",
+    "combine-reports": "mochawesome-merge ./cypress/reports/*.json > cypress/reports/report.json",
+    "generate-report": "marge cypress/reports/mochareports/report.json -f report -o cypress/reports/mochareports",
+    "posttest": "npm run combine-reports && npm run generate-report",
+    "test": "npm run scripts || npm run posttest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashishmadhav04/Cypress.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashishmadhav04/Cypress/issues"
+  },
+  "homepage": "https://github.com/ashishmadhav04/Cypress#readme",
+  "devDependencies": {
+    "cypress": "^9.4.1",
+    "cypress-mochawesome-reporter": "^2.3.0",
+    "cypress-multi-reporters": "^1.5.0",
+    "mocha": "^9.2.0",
+    "mochawesome": "^7.0.1",
+    "mochawesome-merge": "^4.2.1",
+    "mochawesome-report-generator": "^6.0.1"
+  },
+  "dependencies": {}
+}
