@@ -1,0 +1,47 @@
+Jenkinsfile (Declarative Pipeline)
+/* Requires the Docker Pipeline plugin */
+pipeline {
+    agent { docker { image 'node:16.17.1-alpine' } }
+    environment {
+        POST_SEND_EMAIL = "true"
+        EMAIL_ADDRESS = "asheshmadhav.1988@gmail.com"
+    }
+    stages {
+        stage('build') {
+            steps {
+                sh 'node --version'
+            }
+        }
+        stage('Run E-2-E Test') {
+            steps {
+                script {
+                    dir('cypress') {
+                        sh 'npm cache clean --force'
+                        sh 'npm install'
+                        sh '$(npm bin)/cypress run --browser chrome'
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            script {
+                publishHTML(target: [
+                    allowMissing : true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: './cypress/reports',
+                    reportFiles: "index.html",
+                    reportName: "E2E Execution Report"
+                ])
+                sendEmail(
+                    body: "<br> Job",
+                    additionalAddress: EMAIL_ADDRESS,
+                    subject: "Cypress Run Result ${currentBuild.currentResult}",
+                    attachment: "cypress/reports/index.html"
+                )
+            }
+        }
+    }
+}
